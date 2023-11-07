@@ -1,5 +1,3 @@
-"use client";
-
 import ShirtCard from "./shifcard";
 
 const GridBillboard = () => {
