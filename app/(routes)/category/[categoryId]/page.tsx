@@ -34,8 +34,11 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
 
   return (
     <div className="bg-white">
+      <hr className="my-4" />
+
+      <h1 className="text-center text-3xl py-2 font-semibold">{category.name}</h1>
+      <hr className="my-4 mb-8" />
       <Container>
-        <GridBillboard />
         <div className="px-4 sm:px-6 lg:px-8 pb-24">
           <div className="lg:grid lg:grid-cols-5 lg:gap-x-8">
             <MobileFilters sizes={sizes} />

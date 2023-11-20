@@ -7,3 +7,12 @@ body,
 :root {
   height: 100%;
 }
+
+
+.hero-principal {
+  background-image: url(../public/clothesBG.png);
+  background-size: contain;
+  height: 35rem;
+  position: relative;
+  margin-bottom: 2rem;
+}

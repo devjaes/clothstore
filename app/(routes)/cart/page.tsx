@@ -22,6 +22,8 @@ const CartPage = () => {
     return null;
   }
 
+  console.log(cart.items.forEach((item) => console.log(item.name)));
+
   return (
     <div className="bg-white">
       <Container>

@@ -4,7 +4,6 @@ import GridBillboard from "@/components/ui/grid-billboard";
 const About = () => {
   return (
     <Container>
-      <GridBillboard />
     </Container>
   );
 };
