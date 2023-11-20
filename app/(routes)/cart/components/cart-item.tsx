@@ -6,22 +6,32 @@ import IconButton from "@/components/ui/icon-button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 import { Product } from "@/types";
-
+import { useState } from "react";
+import Button from "@/components/ui/button";
 
 interface CartItemProps {
   data: Product;
 }
 
-const CartItem: React.FC<CartItemProps> = ({
-  data
-}) => {
+const CartItem: React.FC<CartItemProps> = ({ data }) => {
   const cart = useCart();
+  const [quantity, setQuantity] = useState(1);
 
   const onRemove = () => {
     cart.removeItem(data.id);
   };
 
-  return ( 
+  const onIncrease = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const onDecrease = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
+  return (
     <li className="flex py-6 border-b">
       <div className="relative h-24 w-24 rounded-md overflow-hidden sm:h-48 sm:w-48">
         <Image
@@ -37,20 +47,29 @@ const CartItem: React.FC<CartItemProps> = ({
         </div>
         <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
           <div className="flex justify-between">
-            <p className=" text-lg font-semibold text-black">
-              {data.name}
-            </p>
+            <p className=" text-lg font-semibold text-black">{data.name}</p>
           </div>
 
           <div className="mt-1 flex text-sm">
-            <p className="text-gray-500">{data.color.name}</p>
-            <p className="ml-4 border-l border-gray-200 pl-4 text-gray-500">{data.size.name}</p>
+            <p className="ml-4 border-l border-gray-200 pl-4 text-gray-500">
+              {data.sizes.length}
+            </p>
           </div>
           <Currency value={data.price} />
+
+          <div className="flex items-center">
+            <Button onClick={onDecrease} className="px-2 h-1/2 flex items-center rounded-md">
+              -
+            </Button>
+            <span className="mx-2 px-4">{quantity}</span>
+            <Button onClick={onIncrease} className="px-2 h-1/2 flex items-center rounded-md">
+              +
+            </Button>
+          </div>
         </div>
       </div>
     </li>
   );
-}
- 
+};
+
 export default CartItem;
