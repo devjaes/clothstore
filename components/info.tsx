@@ -1,14 +1,8 @@
 "use client";
-
-import { ShoppingCart } from "lucide-react";
-
 import Currency from "@/components/ui/currency";
-import Button from "@/components/ui/button";
-import { Product } from "@/types";
-import useCart from "@/hooks/use-cart";
-import { IntegerInput } from "./ui/integer-number";
-import { useState } from "react";
+import { Product, ProductToBuy } from "@/types";
 import SizeSelector from "./ui/size-selector";
+import useCart from "@/hooks/use-cart";
 
 interface InfoProps {
   data: Product;
@@ -16,17 +10,16 @@ interface InfoProps {
 
 const Info: React.FC<InfoProps> = ({ data }) => {
   const cart = useCart();
-  const [quantity, setQuantity] = useState(1);
-
-  const onAddToCart = () => {
-    cart.addItem(data);
-  };
+  const itemInCart: ProductToBuy | undefined = cart.items.find(
+    (item: ProductToBuy) => item.product.id === data.id
+  );
 
   const generateFacebookShareLink = () => {
     const productUrl = `${window.location.origin}/product/${data.id}`;
-    return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(productUrl)}`;
+    return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+      productUrl
+    )}`;
   };
-
 
   const onShareOnFacebook = () => {
     const facebookShareLink = generateFacebookShareLink();
@@ -35,7 +28,9 @@ const Info: React.FC<InfoProps> = ({ data }) => {
 
   const generateTwitterShareLink = () => {
     const productUrl = `${window.location.origin}/product/${data.id}`;
-    const text = encodeURIComponent(`Check out this product: ${data.name} - ${productUrl}`);
+    const text = encodeURIComponent(
+      `Check out this product: ${data.name} - ${productUrl}`
+    );
     return `https://twitter.com/intent/tweet?text=${text}`;
   };
 
@@ -47,7 +42,6 @@ const Info: React.FC<InfoProps> = ({ data }) => {
       productUrl
     )}&media=${media}&description=${description}`;
   };
-
 
   const onShareOnTwitter = () => {
     const twitterShareLink = generateTwitterShareLink();
@@ -88,18 +82,32 @@ const Info: React.FC<InfoProps> = ({ data }) => {
         <hr />
         <div className="flex flex-col ">
           <h3 className="mb-2 font-semibold text-lg">Cantidad:</h3>
-          {<SizeSelector data={data} inCartItem={false} />}
+          {
+            <SizeSelector
+              data={data}
+              selectedSizes={itemInCart ? itemInCart.selectedSizes : undefined}
+            />
+          }
         </div>
         <hr />
         <h2>Compartelo en:</h2>
         <div className="flex justify-center gap-16">
-          <a onClick={onShareOnFacebook} className="flex items-center cursor-pointer">
+          <a
+            onClick={onShareOnFacebook}
+            className="flex items-center cursor-pointer"
+          >
             Facebook
           </a>
-          <a onClick={onShareOnTwitter} className="flex items-center cursor-pointer">
+          <a
+            onClick={onShareOnTwitter}
+            className="flex items-center cursor-pointer"
+          >
             Twitter
           </a>
-          <a onClick={onShareOnPinterest} className="flex items-center cursor-pointer">
+          <a
+            onClick={onShareOnPinterest}
+            className="flex items-center cursor-pointer"
+          >
             Pinterest
           </a>
         </div>

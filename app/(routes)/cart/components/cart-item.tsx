@@ -1,36 +1,30 @@
 import Image from "next/image";
-import { toast } from "react-hot-toast";
 import { X } from "lucide-react";
 
 import IconButton from "@/components/ui/icon-button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
-import { Product } from "@/types";
-import { useState } from "react";
-import Button from "@/components/ui/button";
-import { IntegerInput } from "@/components/ui/integer-number";
+import { ProductToBuy } from "@/types";
 import SizeSelector from "@/components/ui/size-selector";
+import { useState } from "react";
 
 interface CartItemProps {
-  data: Product;
+  data: ProductToBuy;
 }
 
 const CartItem: React.FC<CartItemProps> = ({ data }) => {
   const cart = useCart();
-  const [quantity, setQuantity] = useState(1);
+
+  const [price, setPrice] = useState(
+    data.selectedSizes
+      .map((size) => {
+        return (size.quantity * Number(data.product.price)) as number;
+      })
+      .reduce((a, b) => a + b, 0)
+  );
 
   const onRemove = () => {
-    cart.removeItem(data.id);
-  };
-
-  const onIncrease = () => {
-    setQuantity(quantity + 1);
-  };
-
-  const onDecrease = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
+    cart.removeItem(data.product.id);
   };
 
   return (
@@ -38,7 +32,7 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
       <div className="relative h-24 w-24 rounded-md overflow-hidden sm:h-48 sm:w-48">
         <Image
           fill
-          src={data.images[0].url}
+          src={data.product.images[0].url}
           alt=""
           className="object-cover object-center"
         />
@@ -49,14 +43,20 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
         </div>
         <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
           <div className="flex justify-between">
-            <p className=" text-lg font-semibold text-black">{data.name}</p>
+            <p className=" text-lg font-semibold text-black">
+              {data.product.name}
+            </p>
           </div>
 
-          <Currency value={data.price} />
+          <Currency value={price} />
 
           <div className="flex flex-col mt-5">
             <h3>Cantidad:</h3>
-            <SizeSelector data={data} inCartItem />
+            <SizeSelector
+              data={data.product}
+              CartView
+              selectedSizes={data.selectedSizes}
+            />
           </div>
         </div>
       </div>

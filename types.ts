@@ -8,6 +8,11 @@ export interface Product {
   images: Image[]
 };
 
+export interface ProductToBuy {
+  product: Product;
+  selectedSizes: {size: Size, quantity: number}[];
+}
+
 export interface Image {
   id: string;
   url: string;
