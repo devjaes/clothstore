@@ -32,6 +32,7 @@ export default function AboutUs() {
     return (
         <motion.div
             ref={ref}
+            id='about-us'
             variants={{
                 hidden: { opacity: 0, y: 75 },
                 visible: { opacity: 1, y: 0 }

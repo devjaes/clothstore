@@ -24,11 +24,11 @@ export default function RootLayout({
       <body className={font.className}>
         <ToastProvider />
         <ModalProvider />
+        <Navbar />
         <div className="min-h-screen">
-          <Navbar />
           {children}
-          <Footer />
         </div>
+        <Footer />
       </body>
     </html>
   );

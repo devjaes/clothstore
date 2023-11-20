@@ -8,6 +8,8 @@ import useCart from "@/hooks/use-cart";
 import { Product } from "@/types";
 import { useState } from "react";
 import Button from "@/components/ui/button";
+import { IntegerInput } from "@/components/ui/integer-number";
+import SizeSelector from "@/components/ui/size-selector";
 
 interface CartItemProps {
   data: Product;
@@ -50,21 +52,11 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
             <p className=" text-lg font-semibold text-black">{data.name}</p>
           </div>
 
-          <div className="mt-1 flex text-sm">
-            <p className="ml-4 border-l border-gray-200 pl-4 text-gray-500">
-              {data.sizes.length}
-            </p>
-          </div>
           <Currency value={data.price} />
 
-          <div className="flex items-center">
-            <Button onClick={onDecrease} className="px-2 h-1/2 flex items-center rounded-md">
-              -
-            </Button>
-            <span className="mx-2 px-4">{quantity}</span>
-            <Button onClick={onIncrease} className="px-2 h-1/2 flex items-center rounded-md">
-              +
-            </Button>
+          <div className="flex flex-col mt-5">
+            <h3>Cantidad:</h3>
+            <SizeSelector data={data} inCartItem />
           </div>
         </div>
       </div>
