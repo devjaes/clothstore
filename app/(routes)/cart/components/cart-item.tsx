@@ -6,6 +6,8 @@ import IconButton from "@/components/ui/icon-button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 import { Product } from "@/types";
+import { useState } from "react";
+import Button from "@/components/ui/button";
 
 interface CartItemProps {
   data: Product;
@@ -13,9 +15,20 @@ interface CartItemProps {
 
 const CartItem: React.FC<CartItemProps> = ({ data }) => {
   const cart = useCart();
+  const [quantity, setQuantity] = useState(1);
 
   const onRemove = () => {
     cart.removeItem(data.id);
+  };
+
+  const onIncrease = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const onDecrease = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
   };
 
   return (
@@ -43,6 +56,16 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
             </p>
           </div>
           <Currency value={data.price} />
+
+          <div className="flex items-center">
+            <Button onClick={onDecrease} className="px-2 h-1/2 flex items-center rounded-md">
+              -
+            </Button>
+            <span className="mx-2 px-4">{quantity}</span>
+            <Button onClick={onIncrease} className="px-2 h-1/2 flex items-center rounded-md">
+              +
+            </Button>
+          </div>
         </div>
       </div>
     </li>
