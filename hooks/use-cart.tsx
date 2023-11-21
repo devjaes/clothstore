@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 import { toast } from "react-hot-toast";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { ProductToBuy } from "@/types";
@@ -37,7 +37,6 @@ const useCart = create(
             data,
           ],
         });
-        toast.success("Item updated.");
       },
       removeItem: (id: string) => {
         set({

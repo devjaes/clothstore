@@ -26,7 +26,7 @@ const Summary = () => {
   }, [searchParams, removeAll]);
 
   const totalPrice = items.reduce((total, item) => {
-    return total + Number(item.product.price);
+    return total + Number(item.totalPrice);
   }, 0);
 
   const enlaceWhatsApp = `https://wa.me/593984198999?text=${encodeURIComponent(

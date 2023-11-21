@@ -4,11 +4,24 @@ import React, { useState } from "react";
 export interface IntegerInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   maxIntegerValue?: number;
+  onMaxIntegerValue?: string;
 }
 
 const IntegerInput = React.forwardRef<HTMLInputElement, IntegerInputProps>(
-  ({ maxIntegerValue, className, onChange, disabled, ...props }, ref) => {
+  (
+    {
+      maxIntegerValue,
+      className,
+      onChange,
+      disabled,
+      onMaxIntegerValue,
+      ...props
+    },
+    ref
+  ) => {
     const [value, setValue] = useState(props.value || "");
+    const [onMaxIntegerValueBoolean, setOnMaxIntegerValueBoolean] =
+      useState(false);
 
     const triggerChange = (newValue: string) => {
       setValue(newValue); // actualiza el estado interno
@@ -40,6 +53,7 @@ const IntegerInput = React.forwardRef<HTMLInputElement, IntegerInputProps>(
           triggerChange(newValue); // actualiza usando la función de utilidad
           return newValue;
         }
+        setOnMaxIntegerValueBoolean(true);
         return currentValue;
       });
     };
@@ -52,6 +66,7 @@ const IntegerInput = React.forwardRef<HTMLInputElement, IntegerInputProps>(
         );
         const newValue = String(numericValue);
         triggerChange(newValue); // actualiza usando la función de utilidad
+        setOnMaxIntegerValueBoolean(false);
         return newValue;
       });
     };
@@ -91,6 +106,9 @@ const IntegerInput = React.forwardRef<HTMLInputElement, IntegerInputProps>(
         >
           +
         </button>
+        {onMaxIntegerValueBoolean && (
+          <p className="text-red-500">{onMaxIntegerValue}</p>
+        )}
       </div>
     );
   }

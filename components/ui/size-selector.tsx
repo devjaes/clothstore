@@ -26,7 +26,6 @@ export default function SizeSelector({
   const itemInCart = itemsInCart.find(
     (item: ProductToBuy) => item.product.id === data.id
   );
-  console.log(itemInCart);
 
   // Copy the object with sizes quantity = 0
 
@@ -42,7 +41,6 @@ export default function SizeSelector({
 
   const onQuantityChange = (index: any, newValue: number) => {
     const newQuantitys = [...quantitys];
-    console.log({ newQuantitys });
     newQuantitys[index].quantity = newValue;
     setQuantitys(newQuantitys);
 
@@ -87,6 +85,7 @@ export default function SizeSelector({
                   onChange={(e) => {
                     onQuantityChange(index, parseInt(e.target.value, 10) || 0);
                   }}
+                  onMaxIntegerValue="No hay mas unidades disponibles"
                 />
               </div>
             );
