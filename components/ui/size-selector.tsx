@@ -2,7 +2,7 @@
 
 import useCart from "@/hooks/use-cart";
 import { Product, ProductSize, ProductToBuy } from "@/types";
-import React from "react";
+import React, { useEffect } from "react";
 import { IntegerInput } from "./integer-number";
 import Button from "./button";
 import { ShoppingCart } from "lucide-react";
@@ -38,8 +38,33 @@ export default function SizeSelector({
         })
   );
 
+  const [totalPrice, setTotalPrice] = React.useState(0);
+
+  const onQuantityChange = (index: any, newValue: number) => {
+    const newQuantitys = [...quantitys];
+    console.log({ newQuantitys });
+    newQuantitys[index].quantity = newValue;
+    setQuantitys(newQuantitys);
+
+    const newTotalPrice = newQuantitys
+      .map((item) => {
+        if (item == undefined || item == null) return 0;
+        return Number(data.price) * item.quantity;
+      })
+      .reduce((total, item) => total + item, 0);
+    setTotalPrice(newTotalPrice);
+
+    if (itemInCart) {
+      cart.updateItem({
+        product: data,
+        selectedSizes: newQuantitys,
+        totalPrice: newTotalPrice,
+      });
+    }
+  };
+
   const onAddToCart = () => {
-    cart.addItem({ product: data, selectedSizes: quantitys });
+    cart.addItem({ product: data, selectedSizes: quantitys, totalPrice });
   };
 
   return (
@@ -60,9 +85,7 @@ export default function SizeSelector({
                   maxIntegerValue={size.quantity}
                   disabled={CartView ? false : itemInCart != undefined}
                   onChange={(e) => {
-                    const newQuantitys = [...quantitys];
-                    newQuantitys[index].quantity = parseInt(e.target.value, 10);
-                    setQuantitys(newQuantitys);
+                    onQuantityChange(index, parseInt(e.target.value, 10) || 0);
                   }}
                 />
               </div>
@@ -86,6 +109,11 @@ export default function SizeSelector({
             : "Añadir al carrito"}
           <ShoppingCart size={20} />
         </Button>
+        {!itemInCart && (
+          <span className="text-lg font-semibold">
+            {totalPrice > 0 ? `Total: ${totalPrice}€` : ""}
+          </span>
+        )}
       </div>
     </div>
   );

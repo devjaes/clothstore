@@ -5,12 +5,13 @@ export interface Product {
   price: string;
   isFeatured: boolean;
   sizes: ProductSize[];
-  images: Image[]
-};
+  images: Image[];
+}
 
 export interface ProductToBuy {
   product: Product;
-  selectedSizes: {size: Size, quantity: number}[];
+  selectedSizes: { size: Size; quantity: number }[];
+  totalPrice: number;
 }
 
 export interface Image {
@@ -21,16 +22,16 @@ export interface Image {
 export interface Category {
   id: string;
   name: string;
-};
+}
 
 export interface Size {
   id: string;
   name: string;
   value: string;
-};
+}
 
 export interface ProductSize {
   id: string;
   size: Size;
   quantity: number;
-};
+}

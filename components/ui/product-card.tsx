@@ -10,7 +10,7 @@ import Currency from "@/components/ui/currency";
 import IconButton from "@/components/ui/icon-button";
 import usePreviewModal from "@/hooks/use-preview-modal";
 import useCart from "@/hooks/use-cart";
-import { Product } from "@/types";
+import { Product, ProductToBuy } from "@/types";
 
 interface ProductCard {
   data: Product;
@@ -20,6 +20,9 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
   const previewModal = usePreviewModal();
   const cart = useCart();
   const router = useRouter();
+  const itemInCart: ProductToBuy | undefined = cart.items.find(
+    (item) => item.product.id === data.id
+  );
 
   const handleClick = () => {
     router.push(`/product/${data?.id}`);
@@ -31,14 +34,26 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
     previewModal.onOpen(data);
   };
 
-  const selectedSizes = data.sizes.map((size) => {
-    if (size.quantity > 0) return { size: size.size, quantity: 0 };
-  });
+  const selectedSizes = itemInCart
+    ? itemInCart.selectedSizes
+    : data.sizes.map((size) => {
+        if (size.quantity > 0) return { size: size.size, quantity: 0 };
+      });
 
   const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation();
+    if (selectedSizes === undefined) return;
 
-    cart.addItem({ product: data, selectedSizes });
+    const totalPrice = selectedSizes.reduce((total, item) => {
+      if (item === undefined) return total;
+      return total + Number(data.price) * item.quantity;
+    }, 0);
+
+    cart.addItem({
+      product: data,
+      selectedSizes: selectedSizes as ProductToBuy["selectedSizes"],
+      totalPrice,
+    });
     router.push("/cart");
   };
 

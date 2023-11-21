@@ -22,7 +22,7 @@ const CartPage = () => {
     return null;
   }
 
-  console.log(cart.items.forEach((item) => console.log(item.name)));
+  console.log(cart.items.forEach((item) => console.log(item.product.name)));
 
   return (
     <div className="bg-white">
@@ -38,7 +38,7 @@ const CartPage = () => {
               )}
               <ul>
                 {cart.items.map((item) => (
-                  <CartItem key={item.id} data={item} />
+                  <CartItem key={item.product.id} data={item} />
                 ))}
               </ul>
             </div>

@@ -6,8 +6,6 @@ import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 import { ProductToBuy } from "@/types";
 import SizeSelector from "@/components/ui/size-selector";
-import { useState } from "react";
-
 interface CartItemProps {
   data: ProductToBuy;
 }
@@ -15,13 +13,12 @@ interface CartItemProps {
 const CartItem: React.FC<CartItemProps> = ({ data }) => {
   const cart = useCart();
 
-  const [price, setPrice] = useState(
-    data.selectedSizes
-      .map((size) => {
-        return (size.quantity * Number(data.product.price)) as number;
-      })
-      .reduce((a, b) => a + b, 0)
-  );
+  const price = useCart((state) => {
+    const item = state.items.find(
+      (item) => item.product.id === data.product.id
+    );
+    return item?.totalPrice;
+  });
 
   const onRemove = () => {
     cart.removeItem(data.product.id);
