@@ -61,7 +61,17 @@ export default function Categories({ items }: ProductListProps) {
 
                 className='flex justify-center mt-8'
             >
-                <div className='grid grid-cols-4 gap-x-16 gap-y-12'>
+                <div className='grid grid-cols-1 md:grid-cols-2 IpadPro:grid-cols-3 2xl:grid-cols-4 gap-x-16 gap-y-12'>
+                    <motion.a
+                        variants={categoriesAnimation}
+                        whileHover={{ scale: 1.05 }}
+                        className={` border-white border-4 rounded-2xl bg-cover bg-center h-64 w-80 `}
+                        href={`/category/allProducts`}
+                    >
+                        <div className='bg-black bg-opacity-50 h-full w-full flex justify-center items-center rounded-2xl hover:bg-opacity-10'>
+                            <h1 className='text-white text-center font-semibold text-2xl'>Todos los productos</h1>
+                        </div>
+                    </motion.a>
                     {items.map((category, index) => (
                         <motion.a
                             variants={categoriesAnimation}

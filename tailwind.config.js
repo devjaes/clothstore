@@ -22,6 +22,9 @@ module.exports = {
         carousel: 'marquee 40s linear infinite',
         'spin-slow': 'spin 3s linear infinite',
       },
+      screens: {
+        'IpadPro': '1025px',
+      },
     },
   },
   plugins: [],
