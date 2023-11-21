@@ -46,7 +46,8 @@ export default function Categories({ items }: ProductListProps) {
             initial='hidden'
             animate={mainControls}
             transition={{ duration: 0.5, delay: 0.25 }}
-            className='bg-gray-800 mt-8 py-6 pb-11'>
+            className='bg-gray-800 mt-8 py-6 pb-11'
+            id='categories'>
             <motion.div
                 variants={variants}
                 initial="hidden"

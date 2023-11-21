@@ -36,12 +36,13 @@ export default function hero() {
 
                     <p className='text-5xl '>Soy capaz.</p>
                     <p className='italic text-xs font-thin'>Incluir slogan de la marca</p>
-                    <motion.button
+                    <motion.a
                         whileHover={{ scale: 1.1, y: -1 }}
                         whileTap={{ scale: 0.9 }}
+                        href='#categories'
                         className='bg-white text-black px-8 py-4 rounded-full hover:bg-transparent border hover:border-white hover:text-white'>
                         Accede al catálogo
-                    </motion.button>
+                    </motion.a>
                 </motion.div>
             </motion.div>
         </motion.div>

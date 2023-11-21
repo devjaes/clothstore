@@ -15,7 +15,6 @@ interface ProductPageProps {
 
 const ProductPage: React.FC<ProductPageProps> = async ({ params }) => {
   const product = await getProduct(params.productId);
-  console.log(product);
   const suggestedProducts = await getProducts({
     categoryId: product?.category?.id,
   });
@@ -34,7 +33,8 @@ const ProductPage: React.FC<ProductPageProps> = async ({ params }) => {
               <Info data={product} />
             </div>
           </div>
-          <hr className="my-10" />
+          <hr className="mt-10 mb-6" />
+          <h1 className="text-3xl font-semibold pb-6">Productos relacionados</h1>
           <ProductList title="Related Items" items={suggestedProducts} />
         </div>
       </Container>
