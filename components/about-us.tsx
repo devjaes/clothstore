@@ -51,7 +51,7 @@ export default function AboutUs() {
                 variants={variants}
                 initial="hidden"
                 animate={mainControls}
-                className='flex justify-center mt-8 max-w-7xl mx-auto'>
+                className='flex flex-col items-center lg:flex-row justify-center mt-8 max-w-7xl mx-auto'>
                 <Image src={Logo} alt='logo' className='rounded-full flex-1' />
 
                 <div className='flex flex-col items-center justify-center text-center p-10 gap-6'>

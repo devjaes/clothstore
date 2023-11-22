@@ -33,8 +33,8 @@ export default function SizeSelector({
     selectedSizes
       ? selectedSizes
       : data.sizes.map((size) => {
-          return { size: size.size, quantity: 0 };
-        })
+        return { size: size.size, quantity: 0 };
+      })
   );
 
   const [totalPrice, setTotalPrice] = React.useState(0);
@@ -67,26 +67,28 @@ export default function SizeSelector({
 
   return (
     <div>
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-2">
         {data.sizes.map((size, index) => {
           if (size.quantity > 0) {
             return (
               <div
                 key={index}
-                className="flex flex-row justify-between items-center"
+                className="flex flex-row justify-between items-center w-full"
               >
-                <div className="flex flex-row items-center">
+                <div className="flex flex-row items-center flex-1 ">
                   <span className="text-sm">{size.size.name}</span>
                 </div>
-                <IntegerInput
-                  value={String(quantitys[index].quantity)}
-                  maxIntegerValue={size.quantity}
-                  disabled={CartView ? false : itemInCart != undefined}
-                  onChange={(e) => {
-                    onQuantityChange(index, parseInt(e.target.value, 10) || 0);
-                  }}
-                  onMaxIntegerValue="No hay mas unidades disponibles"
-                />
+                <div className="flex-1">
+                  <IntegerInput
+                    value={String(quantitys[index].quantity)}
+                    maxIntegerValue={size.quantity}
+                    disabled={CartView ? false : itemInCart != undefined}
+                    onChange={(e) => {
+                      onQuantityChange(index, parseInt(e.target.value, 10) || 0);
+                    }}
+                    onMaxIntegerValue="No hay mas unidades disponibles"
+                  />
+                </div>
               </div>
             );
           }
