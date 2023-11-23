@@ -10,7 +10,7 @@ const AboutLink = () => {
 
   return (
     <Container>
-      <Link href="#about-us" className="self">
+      <Link href="/#about-us" className="self">
         <p
           className={cn(
             "text-md font-medium transition-colors text-fontColorWhite hover:text-white",

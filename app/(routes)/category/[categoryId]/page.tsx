@@ -1,14 +1,17 @@
 import Container from "@/components/ui/container";
 import ProductCard from "@/components/ui/product-card";
 import NoResults from "@/components/ui/no-results";
+import CategorySelector from "@/components/category-selector";
 
 import getProducts from "@/actions/get-products";
 import getCategory from "@/actions/get-category";
 import getSizes from "@/actions/get-sizes";
 
-import Filter from "./components/filter";
-import MobileFilters from "./components/mobile-filters";
-import GridBillboard from "@/components/ui/grid-billboard";
+
+import CategoryInfo from "./components/category-info";
+import { Category } from "@/types";
+import getCategories from "@/actions/get-categories";
+import Button from "@/components/ui/button";
 
 export const revalidate = 0;
 
@@ -28,33 +31,38 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
   const products = await getProducts({
     categoryId: params.categoryId,
     sizeId: searchParams.sizeId,
+    onlyAvailable: true,
   });
+
+  const categories = await getCategories();
+
   const sizes = await getSizes();
   const category = await getCategory(params.categoryId);
 
+
   return (
     <div className="bg-white">
+      <Container>
+        <div className="flex gap-3 pt-5 pb-3 px-12">
+          {categories.map((category, index) => (
+            <a
+              key={index}
+              href={`/category/${category.id}`}
+            >
+              <Button>
+                {category.name}
+              </Button>
+
+            </a>
+          ))}
+        </div>
+      </Container>
       <hr className="my-4" />
 
       <h1 className="text-center text-3xl py-2 font-semibold">{category.name}</h1>
       <hr className="my-4 mb-8" />
       <Container>
-        <div className="px-4 sm:px-6 lg:px-8 pb-24">
-          <div className="lg:grid lg:grid-cols-5 lg:gap-x-8">
-            <MobileFilters sizes={sizes} />
-            <div className="hidden lg:block">
-              <Filter valueKey="sizeId" name="Sizes" data={sizes} />
-            </div>
-            <div className="mt-6 lg:col-span-4 lg:mt-0">
-              {products.length === 0 && <NoResults />}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {products.map((item) => (
-                  <ProductCard key={item.id} data={item} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        <CategoryInfo products={products} sizes={sizes} />
       </Container>
     </div>
   );
