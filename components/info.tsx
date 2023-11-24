@@ -64,20 +64,10 @@ const Info: React.FC<InfoProps> = ({ data }) => {
       <hr className="my-4" />
       <div className="flex flex-col gap-y-6">
         <div className="flex items-center gap-x-4">
+          <h3 className="font-semibold text-black">Descripción:</h3>
+          <p className="text-gray-500">{data.description}</p>
           <h3 className="font-semibold text-black">Talla(s):</h3>
-          <div>
-            {data?.sizes?.map((size) => {
-              if (size.quantity > 0)
-                return (
-                  <span
-                    key={size.id}
-                    className="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-900 mr-2"
-                  >
-                    {size.size.name}
-                  </span>
-                );
-            })}
-          </div>
+
         </div>
         <hr />
         <div className="flex flex-col ">
