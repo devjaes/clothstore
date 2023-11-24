@@ -102,6 +102,12 @@ const Summary = () => {
         <input type="text" name="country" value={form.country} readOnly
           className="rounded-full border border-primaryBlack p-1 px-5" />
         <p className="text-sm text-red-600">*Actualmente realizamos envíos solo en Ecuador</p>
+
+        <label>
+          Correo electrónico:
+        </label>
+        <input type="text" name="clientLastName" value={form.clientLastName} onChange={handleChange}
+          className="rounded-full border border-primaryBlack p-1 px-5" />
       </form>
 
       <a onClick={onCheckout} target="_blank">
