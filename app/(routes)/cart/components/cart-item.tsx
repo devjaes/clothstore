@@ -1,32 +1,35 @@
 import Image from "next/image";
-import { toast } from "react-hot-toast";
 import { X } from "lucide-react";
 
 import IconButton from "@/components/ui/icon-button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
-import { Product } from "@/types";
-
-
+import { ProductToBuy } from "@/types";
+import SizeSelector from "@/components/ui/size-selector";
 interface CartItemProps {
-  data: Product;
+  data: ProductToBuy;
 }
 
-const CartItem: React.FC<CartItemProps> = ({
-  data
-}) => {
+const CartItem: React.FC<CartItemProps> = ({ data }) => {
   const cart = useCart();
 
+  const price = useCart((state) => {
+    const item = state.items.find(
+      (item) => item.product.id === data.product.id
+    );
+    return item?.totalPrice;
+  });
+
   const onRemove = () => {
-    cart.removeItem(data.id);
+    cart.removeItem(data.product.id);
   };
 
-  return ( 
+  return (
     <li className="flex py-6 border-b">
       <div className="relative h-24 w-24 rounded-md overflow-hidden sm:h-48 sm:w-48">
         <Image
           fill
-          src={data.images[0].url}
+          src={data.product.images[0].url}
           alt=""
           className="object-cover object-center"
         />
@@ -36,21 +39,27 @@ const CartItem: React.FC<CartItemProps> = ({
           <IconButton onClick={onRemove} icon={<X size={15} />} />
         </div>
         <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
-          <div className="flex justify-between">
+          <div className="flex flex-col">
             <p className=" text-lg font-semibold text-black">
-              {data.name}
+              {data.product.name}
             </p>
+            <p className="font-semibold text-black text-xs"><span>Precio unitario: </span> {data.product.price}</p>
           </div>
 
-          <div className="mt-1 flex text-sm">
-            <p className="text-gray-500">{data.color.name}</p>
-            <p className="ml-4 border-l border-gray-200 pl-4 text-gray-500">{data.size.name}</p>
-          </div>
-          <Currency value={data.price} />
+          <Currency value={price} />
+
+        </div>
+        <div className="flex flex-col mt-5">
+          <h3>Cantidad:</h3>
+          <SizeSelector
+            data={data.product}
+            CartView
+            selectedSizes={data.selectedSizes}
+          />
         </div>
       </div>
     </li>
   );
-}
- 
+};
+
 export default CartItem;
