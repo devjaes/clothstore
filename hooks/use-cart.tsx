@@ -22,11 +22,11 @@ const useCart = create(
         );
 
         if (existingItem) {
-          return toast("Item already in cart.");
+          return toast("Artículo ya agregado al carrito.", { icon: "🛒" })
         }
 
         set({ items: [...get().items, data] });
-        toast.success("Item added to cart.");
+        toast.success("Artículo agregado al carrito.");
       },
       updateItem: (data: ProductToBuy) => {
         set({
@@ -46,7 +46,7 @@ const useCart = create(
             ),
           ],
         });
-        toast.success("Item removed from cart.");
+        toast.success("Artículo removido del carrito.");
       },
       removeAll: () => set({ items: [] }),
     }),

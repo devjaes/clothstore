@@ -25,7 +25,7 @@ export default function Categories({ items }: ProductListProps) {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
-            transition: { staggerChildren: 0.5 },
+            transition: { staggerChildren: 0.25 },
         },
     };
 
@@ -48,20 +48,20 @@ export default function Categories({ items }: ProductListProps) {
             transition={{ duration: 0.5, delay: 0.25 }}
             className='bg-gray-800 mt-8 py-6 pb-11'
             id='categories'>
-            <motion.div
-                variants={variants}
-                initial="hidden"
-                animate={mainControls}
+            <div
                 className='text-white'>
                 <div className='bg-white h-1' />
                 <h1 className='text-center font-semibold text-4xl py-6'>Categorías</h1>
                 <div className='bg-white h-1 ' />
-            </motion.div>
+            </div>
             <div
-
                 className='flex justify-center mt-8'
             >
-                <div className='grid grid-cols-1 md:grid-cols-2 IpadPro:grid-cols-3 2xl:grid-cols-4 gap-x-16 gap-y-12'>
+                <motion.div
+                    variants={variants}
+                    initial="hidden"
+                    animate={mainControls}
+                    className='grid grid-cols-1 md:grid-cols-2 IpadPro:grid-cols-3 2xl:grid-cols-4 gap-x-16 gap-y-12'>
                     <motion.a
                         variants={categoriesAnimation}
                         whileHover={{ scale: 1.05 }}
@@ -85,7 +85,7 @@ export default function Categories({ items }: ProductListProps) {
                             </div>
                         </motion.a>
                     ))}
-                </div>
+                </motion.div>
             </div>
 
         </motion.div >

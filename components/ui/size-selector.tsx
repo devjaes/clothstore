@@ -103,7 +103,7 @@ export default function SizeSelector({
         <Button
           onClick={onAddToCart}
           className="flex items-center gap-x-2"
-          disabled={itemInCart != undefined}
+          disabled={itemInCart != undefined || totalPrice == 0}
         >
           {itemInCart != undefined
             ? "Este producto ya esta en el carrito"
