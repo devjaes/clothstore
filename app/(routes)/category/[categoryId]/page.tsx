@@ -44,8 +44,19 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
     <div className="bg-white">
       <Container>
         <div className="flex gap-3 pt-5 pb-3 px-12">
-          {categories.map((category, index) => (
-            <a
+          <a
+            href={`/category/allProducts`}
+          >
+            <Button>
+              Todos los productos
+            </Button>
+
+          </a>
+          {categories.map((category, index) => {
+            if (category.id === params.categoryId) {
+              return null;
+            }
+            return (<a
               key={index}
               href={`/category/${category.id}`}
             >
@@ -53,8 +64,9 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
                 {category.name}
               </Button>
 
-            </a>
-          ))}
+            </a>)
+
+          })}
         </div>
       </Container>
       <hr className="my-4" />

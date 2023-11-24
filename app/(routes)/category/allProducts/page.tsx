@@ -10,6 +10,8 @@ import CategoryInfo from "../[categoryId]/components/category-info";
 import Filter from "../[categoryId]/components/filter";
 import MobileFilters from "../[categoryId]/components/mobile-filters";
 import GridBillboard from "@/components/ui/grid-billboard";
+import getCategories from "@/actions/get-categories";
+import Button from "@/components/ui/button";
 
 export const revalidate = 0;
 
@@ -27,9 +29,26 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
         sizeId: searchParams.sizeId,
     });
     const sizes = await getSizes();
+    const categories = await getCategories();
 
     return (
         <div className="bg-white">
+            <Container>
+                <div className="flex gap-3 pt-5 pb-3 px-12">
+
+                    {categories.map((category, index) => (
+                        <a
+                            key={index}
+                            href={`/category/${category.id}`}
+                        >
+                            <Button>
+                                {category.name}
+                            </Button>
+
+                        </a>
+                    ))}
+                </div>
+            </Container>
             <hr className="my-4" />
 
             <h1 className="text-center text-3xl py-2 font-semibold">Todos los productos</h1>
