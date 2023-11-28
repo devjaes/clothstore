@@ -36,3 +36,11 @@ export interface ProductSize {
   size: Size;
   quantity: number;
 }
+
+export interface OrderRegistration {
+  productsToBuy:   ProductToBuy[];
+  total:      number;
+  clientName:      string;
+  clientLastName:  string;
+  clientEmail:     string;
+}
