@@ -24,6 +24,10 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
     cart.removeItem(data.product.id);
   };
 
+  if (price === undefined || price == 0) {
+    onRemove();
+  }
+
   return (
     <li className="flex py-6 border-b">
       <div className="relative h-24 w-24 rounded-md overflow-hidden sm:h-48 sm:w-48">
@@ -43,11 +47,12 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
             <p className=" text-lg font-semibold text-black">
               {data.product.name}
             </p>
-            <p className="font-semibold text-black text-xs"><span>Precio unitario: </span> {data.product.price}</p>
+            <p className="font-semibold text-black text-xs">
+              <span>Precio unitario: </span> {data.product.price}
+            </p>
           </div>
 
           <Currency value={price} />
-
         </div>
         <div className="flex flex-col mt-5">
           <h3>Cantidad:</h3>

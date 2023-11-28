@@ -8,7 +8,7 @@ import Button from "@/components/ui/button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 import { toast } from "react-hot-toast";
-import { OrderRegistration } from "@/types";
+import { OrderRegistration, ProductToBuy } from "@/types";
 
 const Summary = () => {
   const searchParams = useSearchParams();
@@ -67,11 +67,19 @@ const Summary = () => {
   console.log(items.map((item) => item.selectedSizes));
 
   const onCheckout = async () => {
+    const productsToBuy: ProductToBuy[] = items.map((item) => ({
+      product: item.product,
+      selectedSizes: item.selectedSizes.filter(
+        (size) => size != null && size != undefined
+      ),
+      totalPrice: item.totalPrice,
+    })) as ProductToBuy[];
+
     const orderGeneration: OrderRegistration = {
       clientName: form.clientName,
       clientLastName: form.clientLastName,
       clientEmail: form.clientEmail,
-      productsToBuy: items,
+      productsToBuy: productsToBuy,
       total: items.reduce((total, item) => {
         return total + Number(item.totalPrice);
       }, 0),

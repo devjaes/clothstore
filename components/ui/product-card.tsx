@@ -37,8 +37,8 @@ const ProductCard: React.FC<ProductCard> = ({ data }) => {
   const selectedSizes = itemInCart
     ? itemInCart.selectedSizes
     : data.sizes.map((size) => {
-      if (size.quantity > 0) return { size: size.size, quantity: 0 };
-    });
+        if (size.quantity > 0) return { size: size.size, quantity: 1 };
+      });
 
   const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation();
