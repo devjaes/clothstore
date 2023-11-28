@@ -85,11 +85,6 @@ export default function SizeSelector({
                     maxIntegerValue={size.quantity}
                     disabled={CartView ? false : itemInCart != undefined}
                     onChange={(e) => {
-                      if (CartView) {
-                        if (e.target.value == "1") {
-                          return;
-                        }
-                      }
                       onQuantityChange(
                         index,
                         parseInt(e.target.value, 10) || 0
