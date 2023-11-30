@@ -32,14 +32,14 @@ const ProductList: React.FC<ProductListProps> = ({
   }
 
   return (
-    <div className=" w-full h-full overflow-hidden ">
+    <div className=" w-full h-full overflow-x-scroll md:overflow-hidden ">
       {items.length === 0 && <NoResults />}
 
       <motion.ul
         variants={variants}
         initial="hidden"
         animate="visible"
-        className="flex gap-4 animate-carousel">
+        className="flex gap-4 md:animate-carousel animate-cel_carousel">
         {carouselItems.map((item) => (
           <motion.li
             variants={images}

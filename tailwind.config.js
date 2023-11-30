@@ -21,6 +21,8 @@ module.exports = {
       animation: {
         carousel: 'marquee 40s linear infinite',
         'spin-slow': 'spin 3s linear infinite',
+        cel_carousel:'marquee 10s linear infinite',
+        'spin-slow': 'spin 3s linear infinite'
       },
       screens: {
         'IpadPro': '1025px',
