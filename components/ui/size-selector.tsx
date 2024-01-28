@@ -7,6 +7,7 @@ import { IntegerInput } from "./integer-number";
 import Button from "./button";
 import { ShoppingCart } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { sk } from "date-fns/locale";
 
 interface sizeSelectorProps {
   data: Product;
@@ -33,8 +34,8 @@ export default function SizeSelector({
     selectedSizes
       ? selectedSizes
       : data.sizes.map((size) => {
-        return { size: size.size, quantity: 0 };
-      })
+          return { size: size.size, quantity: 0 };
+        })
   );
 
   const [totalPrice, setTotalPrice] = React.useState(0);
@@ -84,7 +85,10 @@ export default function SizeSelector({
                     maxIntegerValue={size.quantity}
                     disabled={CartView ? false : itemInCart != undefined}
                     onChange={(e) => {
-                      onQuantityChange(index, parseInt(e.target.value, 10) || 0);
+                      onQuantityChange(
+                        index,
+                        parseInt(e.target.value, 10) || 0
+                      );
                     }}
                     onMaxIntegerValue="No hay mas unidades disponibles"
                   />

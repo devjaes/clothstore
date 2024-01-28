@@ -22,7 +22,6 @@ const CartPage = () => {
     return null;
   }
 
-
   return (
     <div className="bg-white">
       <Container>
@@ -36,9 +35,11 @@ const CartPage = () => {
                 </p>
               )}
               <ul>
-                {cart.items.map((item) => (
-                  <CartItem key={item.product.id} data={item} />
-                ))}
+                {cart.items
+                  .sort((a, b) => a.product.name.localeCompare(b.product.name))
+                  .map((item) => (
+                    <CartItem key={item.product.id} data={item} />
+                  ))}
               </ul>
             </div>
             <Summary />
