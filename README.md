@@ -1,3 +1,7 @@
+# Clothstore
+
+**[See the project demo deployed](https://clothstore-zeta.vercel.app/)**
+
 **Node version 14.x**
 
 ### Cloning the repository
@@ -34,4 +38,4 @@ Running commands with npm `npm run [command]`
 | :-------------- | :--------------------------------------- |
 | `dev`           | Starts a development instance of the app |
 
-# clothstore
+
