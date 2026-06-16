@@ -1,4 +1,4 @@
-# Ambivalence — Storefront (2023)
+# Ambivalence - Storefront (2023)
 
 > Two-app e-commerce platform (storefront + admin) for an Ecuadorian clothing brand. This repo is the customer-facing storefront.
 
@@ -50,4 +50,4 @@ Earlier project (2023) for an Ecuadorian clothing brand. Kept public as part of 
 
 ## Portfolio
 
-[Project entry on devjaes.dev →](https://devjaes.dev/work/ambivalence)
+[Project entry on devjaes.dev](https://devjaes.dev/work/ambivalence)
